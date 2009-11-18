@@ -1449,9 +1449,12 @@ bool SystemTree::replaceNode(int subsystemId, int nodeId, JausNode newNode)
 		return false;
 	}
 	cloneNode->id = currentNode->id;
-	size_t stringLength = strlen(currentNode->identification) + 1;
-	cloneNode->identification = (char *) realloc(cloneNode->identification, stringLength);
-	sprintf(cloneNode->identification, "%s", currentNode->identification);
+	if(currentNode->identification)
+	{
+		size_t stringLength = strlen(currentNode->identification) + 1;
+		cloneNode->identification = (char *) realloc(cloneNode->identification, stringLength);
+		sprintf(cloneNode->identification, "%s", currentNode->identification);
+	}
 	cloneNode->subsystem = currentNode->subsystem;
 
 	for(int i = 0; i < newNode->components->elementCount; i++)
@@ -1566,7 +1569,7 @@ char *SystemTree::getSubsystemIdentification(int subsId)
 	char *string = NULL;
 
 	JausSubsystem subs = system[subsId];
-	if(subs)
+	if(subs && subs->identification)
 	{
 		string = (char *)calloc(strlen(subs->identification)+1, sizeof(char));
 		strcpy(string, subs->identification);
@@ -1593,7 +1596,7 @@ char *SystemTree::getNodeIdentification(int subsId, int nodeId)
 	char *string = NULL;
 
 	JausNode node = findNode(subsId, nodeId);
-	if(node)
+	if(node && node->identification)
 	{
 		string = (char *)calloc(strlen(node->identification)+1, sizeof(char));
 		strcpy(string, node->identification);
