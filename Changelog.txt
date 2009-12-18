@@ -3,6 +3,9 @@
 	* Note * All issue #'s now indicate GoogleCode issues (trac ticket #'s no longer used)
 
 	* Issue #44: Fixed possible seg faults in system tree (strlen(NULL))
+	
+	* reportPayloadInterfaceMessage.c: fixed bug in dataSize method (the NULL character terminating
+			an information element enumeration string was not being counted properly)
 
 2009-09-08  OpenJAUSv3.3.0b
 	

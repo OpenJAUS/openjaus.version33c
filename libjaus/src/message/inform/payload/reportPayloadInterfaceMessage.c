@@ -834,7 +834,7 @@ static unsigned int dataSize(ReportPayloadInterfaceMessage message)
 		if(tempUShort != 0)
 		{
 			tempString = jausGetInformationInterfaceEnumeration(message->jausPayloadInterface, identifierString, &successFlag);
-			index += (int) strlen(tempString);
+			index += tempUShort;
 		}
 
 		// get/pack HMI recommendation, if in PV
