@@ -116,7 +116,7 @@ static JausBoolean dataFromBuffer(QueryVksObjectsMessage message, unsigned char 
 		{
 			// Request Id
 			if(!jausUnsignedShortFromBuffer(&message->objectCount, buffer+index, bufferSizeBytes-index)) return JAUS_FALSE;
-			index += JAUS_BYTE_SIZE_BYTES;
+			index += JAUS_UNSIGNED_SHORT_SIZE_BYTES;
 
 			// Allocate memory for objectIds
 			message->objectIds = (JausUnsignedInteger *)malloc(message->objectCount * JAUS_UNSIGNED_INTEGER_SIZE_BYTES);
