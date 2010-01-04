@@ -299,9 +299,15 @@ JausBoolean reportPayloadDataElementMessageToBuffer(ReportPayloadDataElementMess
 	}
 }
 
-ReportPayloadDataElementMessage reportPayloadDataElementMessageFromJausMessage(JausMessage jausMessage)
+ReportPayloadDataElementMessage reportPayloadDataElementMessageFromJausMessage(JausMessage jausMessage, JausPayloadInterface jausPayloadInterface)
 {
 	ReportPayloadDataElementMessage message;
+
+	// User must pass in a valid jausPayloadInterface
+	if(jausPayloadInterface == NULL)
+	{
+		return NULL;
+	}
 
 	if(jausMessage->commandCode != commandCode)
 	{
@@ -329,6 +335,9 @@ ReportPayloadDataElementMessage reportPayloadDataElementMessageFromJausMessage(J
 		message->dataSize = jausMessage->dataSize;
 		message->dataFlag = jausMessage->dataFlag;
 		message->sequenceNumber = jausMessage->sequenceNumber;
+
+		// The jausPayloadInterface is needed for the dataFromBuffer function to work
+		message->jausPayloadInterface = jausPayloadInterface;
 
 		// Unpack jausMessage->data
 		if(dataFromBuffer(message, jausMessage->data, jausMessage->dataSize))
