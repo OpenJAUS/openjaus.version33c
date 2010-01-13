@@ -5,11 +5,13 @@ syntax: regexp
 ^libjaus/Makefile$
 syntax: regexp
 \.so$
+syntax: regexp
+\.o$
 syntax: glob
 genmake
 syntax: glob
 Makefile
-syntax: regexp
-\.so$
+syntax: glob
+ojNodeManager
 syntax: regexp
 ^gentarget$
