@@ -1,8 +1,14 @@
 *Date*  OpenJAUSv3.3c
 
 	* Note * All issue #'s now indicate GoogleCode issues (trac ticket #'s no longer used)
+	
+	* Issue #2: Fixed memory problem with setJointMotion message
+	
+	* Issue #32: Added jausPayloadInterface as a parameter to reportPayloadDataElementMessageFromJausMessage function
 
 	* Issue #44: Fixed possible seg faults in system tree (strlen(NULL))
+	
+	* Issue #46: Fixed parsing bug in QueryVksObjectsMessage dataFromBuffer
 	
 	* reportPayloadInterfaceMessage.c: fixed bug in dataSize method (the NULL character terminating
 			an information element enumeration string was not being counted properly)
