@@ -279,7 +279,7 @@ bool JausOpcUdpInterface::processMessage(JausMessage message)
 					HASH_MAP<int, OpcUdpTransportData>::iterator iter;
 					for(iter = addressMap.begin(); iter != addressMap.end(); iter++)
 					{
-						int componentId = (iter->first >> 8) && 0xFF;
+						int componentId = (iter->first >> 8) & 0xFF;
 						if(componentId == message->destination->component)
 						{
 							sendJausMessage(iter->second, message);
