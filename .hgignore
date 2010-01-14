@@ -1,0 +1,15 @@
+
+syntax: regexp
+^libjaus/genmake$
+syntax: regexp
+^libjaus/Makefile$
+syntax: regexp
+\.so$
+syntax: glob
+genmake
+syntax: glob
+Makefile
+syntax: regexp
+\.so$
+syntax: regexp
+^gentarget$
