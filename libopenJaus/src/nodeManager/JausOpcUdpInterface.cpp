@@ -246,10 +246,11 @@ bool JausOpcUdpInterface::processMessage(JausMessage message)
 			break;
 
 		case COMPONENT_INTERFACE:
-			// if cmpt == BROADCAST || inst == BROADCAST send unicast to all components
-			if( message->destination->component == JAUS_BROADCAST_COMPONENT_ID ||
-				message->destination->instance == JAUS_BROADCAST_INSTANCE_ID )
+			// if component == BROADCAST
+			if( message->destination->component == JAUS_BROADCAST_COMPONENT_ID)
 			{
+				// Broadcasting to all components with a specific instance is not supported
+				// So, send this message to all components regardless of destination instance
 				if(this->multicast)
 				{
 					// Send multicast packet
@@ -259,7 +260,7 @@ bool JausOpcUdpInterface::processMessage(JausMessage message)
 				}
 				else
 				{
-					// Unicast to all known subsystems
+					// Unicast to all known components
 					HASH_MAP<int, OpcUdpTransportData>::iterator iter;
 					for(iter = addressMap.begin(); iter != addressMap.end(); iter++)
 					{
@@ -271,18 +272,37 @@ bool JausOpcUdpInterface::processMessage(JausMessage message)
 			}
 			else
 			{
-				// Unicast
-				if(addressMap.find(jausAddressHash(message->destination)) != addressMap.end())
+				// If the destination is to all instances of a specific component
+				if(message->destination->instance == JAUS_BROADCAST_INSTANCE_ID )
 				{
-					sendJausMessage(addressMap.find(jausAddressHash(message->destination))->second, message);
+					// Find all instances with this component ID
+					HASH_MAP<int, OpcUdpTransportData>::iterator iter;
+					for(iter = addressMap.begin(); iter != addressMap.end(); iter++)
+					{
+						int componentId = (iter->first >> 8) && 0xFF;
+						if(componentId == message->destination->component)
+						{
+							sendJausMessage(iter->second, message);
+						}
+					}
 					jausMessageDestroy(message);
 					return true;
 				}
-				else
+				else // The message is to a specific component with a specific instance
 				{
-					// Don't know how to send this message
-					jausMessageDestroy(message);
-					return false;
+					// Unicast
+					if(addressMap.find(jausAddressHash(message->destination)) != addressMap.end())
+					{
+						sendJausMessage(addressMap.find(jausAddressHash(message->destination))->second, message);
+						jausMessageDestroy(message);
+						return true;
+					}
+					else
+					{
+						// Don't know how to send this message
+						jausMessageDestroy(message);
+						return false;
+					}
 				}
 			}
 			break;
