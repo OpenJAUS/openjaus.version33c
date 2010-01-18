@@ -10,6 +10,8 @@
 	
 	* Issue #46: Fixed parsing bug in QueryVksObjectsMessage dataFromBuffer
 	
+	* Fixed bugs that caused system not to route messages with broadcast instance destination correctly
+	
 	* reportPayloadInterfaceMessage.c: fixed bug in dataSize method (the NULL character terminating
 			an information element enumeration string was not being counted properly)
 
