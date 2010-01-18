@@ -345,6 +345,14 @@ bool JausComponentCommunicationManager::sendToComponentX(JausMessage message)
 		return false;
 	}
 
+	if( message->destination->instance == JAUS_BROADCAST_INSTANCE_ID )
+	{
+		// Hash map lookups will not work with a broadcast instance
+		// So just send to all interfaces
+		// Assumption: Interfaces will reject the message if component isn't found
+		return sendToAllInterfaces(message);
+	}
+
 	if(	message->destination->subsystem == JAUS_BROADCAST_SUBSYSTEM_ID ||
 		message->destination->node == JAUS_BROADCAST_NODE_ID)
 	{
