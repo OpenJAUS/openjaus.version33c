@@ -56,7 +56,7 @@ SystemTree::SystemTree(FileLoader *configData, EventHandler *handler)
 	mySubsystemId = configData->GetConfigDataInt("JAUS", "SubsystemId");
 	myNodeId = configData->GetConfigDataInt("JAUS", "NodeId");
 
-	memset(system, 0, sizeof(system));
+	memset(system, 0, MAX_SUBS_COUNT * sizeof(JausSubsystem));
 	subsystemCount = 0;
 }
 
@@ -460,6 +460,12 @@ JausAddress SystemTree::lookUpAddress(int lookupSubs, int lookupNode, int lookup
 	address->component = JAUS_INVALID_COMPONENT_ID;
 	address->instance = JAUS_INVALID_INSTANCE_ID;
 	address->next = NULL;
+
+	// Assume wildcard if broadcast is set
+	lookupSubs = lookupSubs == JAUS_ADDRESS_BROADCAST_OCTET? JAUS_ADDRESS_WILDCARD_OCTET : lookupSubs;
+	lookupNode = lookupNode == JAUS_ADDRESS_BROADCAST_OCTET? JAUS_ADDRESS_WILDCARD_OCTET : lookupNode;
+	lookupCmpt = lookupCmpt == JAUS_ADDRESS_BROADCAST_OCTET? JAUS_ADDRESS_WILDCARD_OCTET : lookupCmpt;
+	lookupInst = lookupInst == JAUS_ADDRESS_BROADCAST_OCTET? JAUS_ADDRESS_WILDCARD_OCTET : lookupInst;
 
 	JausAddress returnAddress = address;
 

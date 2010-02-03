@@ -50,9 +50,12 @@
 #include "EventHandler.h"
 #include "jaus.h"
 
+
 class SystemTree
 {
 public:
+	static const unsigned int MAX_SUBS_COUNT = 255;
+
 	SystemTree(FileLoader *configData, EventHandler *handler);
 	~SystemTree(void);
 
@@ -178,7 +181,7 @@ public:
 private:
 	FileLoader *configData;
 	std::list <EventHandler *> eventHandlers;
-	JausSubsystem system[255];
+	JausSubsystem system[MAX_SUBS_COUNT];
 	int subsystemCount;
 	int mySubsystemId;
 	int myNodeId;
