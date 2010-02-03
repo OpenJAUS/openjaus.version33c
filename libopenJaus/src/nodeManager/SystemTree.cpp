@@ -425,6 +425,11 @@ JausAddress SystemTree::lookUpAddressInSubsystem(JausSubsystem subs, int lookupN
 
 JausAddress SystemTree::lookUpAddress2(int lookupSubs, int lookupNode, int lookupCmpt, int lookupInst)
 {
+	lookupSubs = lookupSubs == JAUS_ADDRESS_BROADCAST_OCTET? JAUS_ADDRESS_WILDCARD_OCTET : lookupSubs;
+	lookupNode = lookupNode == JAUS_ADDRESS_BROADCAST_OCTET? JAUS_ADDRESS_WILDCARD_OCTET : lookupNode;
+	lookupCmpt = lookupCmpt == JAUS_ADDRESS_BROADCAST_OCTET? JAUS_ADDRESS_WILDCARD_OCTET : lookupCmpt;
+	lookupInst = lookupInst == JAUS_ADDRESS_BROADCAST_OCTET? JAUS_ADDRESS_WILDCARD_OCTET : lookupInst;
+
 	if(lookupSubs == JAUS_ADDRESS_WILDCARD_OCTET)
 	{
 		for(int i = JAUS_MINIMUM_SUBSYSTEM_ID; i < JAUS_MAXIMUM_SUBSYSTEM_ID; i++)
