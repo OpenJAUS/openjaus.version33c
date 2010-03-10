@@ -59,7 +59,7 @@ JausTransportInterface *JausCommunicationManager::getJausInterface(unsigned long
 {
 	if(index < this->interfaces.size())
 	{
-		return this->interfaces.at(index);
+		return this->interfaces[index];
 	}
 	else
 	{
