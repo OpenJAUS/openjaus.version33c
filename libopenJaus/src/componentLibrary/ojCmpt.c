@@ -481,7 +481,17 @@ JausAddress ojCmptGetControllerAddress(OjCmpt ojCmpt)
 
 JausBoolean ojCmptHasController(OjCmpt ojCmpt)
 {
-	return ojCmpt->jaus->controller.active;
+	if(ojCmpt->jaus->controller.active)
+	{
+		if(ojCmptLookupAddress(ojCmpt, ojCmpt->jaus->controller.address))
+		{
+			return JAUS_TRUE;
+		}
+
+		ojCmptTerminateController(ojCmpt);
+	}
+
+	return JAUS_FALSE;
 }
 
 JausBoolean ojCmptTerminateController(OjCmpt ojCmpt)
