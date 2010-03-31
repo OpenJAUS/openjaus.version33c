@@ -827,6 +827,10 @@ JausAddress SystemTree::lookUpAddress(int lookupSubs, int lookupNode, int lookup
 		else
 		{
 			node = findNode(subs->id, lookupNode);
+			if(!node)
+			{
+				return address;
+			}
 			if(lookupCmpt == JAUS_ADDRESS_WILDCARD_OCTET || lookupInst == JAUS_ADDRESS_WILDCARD_OCTET)
 			{
 				// Look through all components
