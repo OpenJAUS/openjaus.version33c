@@ -279,6 +279,8 @@ int main(int argc, char **args)
 
 void parseUserInput(char input)
 {
+	int retVal;
+
 	switch(input)
 	{
 		case 'T':
@@ -291,7 +293,7 @@ void parseUserInput(char input)
 
 		case 'c':
 		case 'C':
-			system(CLEAR_COMMAND);
+			retVal = system(CLEAR_COMMAND); //retVal needed to suppress warning with g++
 			break;
 
 		case '?':
