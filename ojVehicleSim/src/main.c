@@ -488,7 +488,11 @@ int main(int argCount, char **argString)
 	time(&timeStamp);
 	strftime(timeString, DEFAULT_STRING_LENGTH-1, "%m-%d-%Y %X", localtime(&timeStamp));
 
-	system(CLEAR);
+	int retVal = system(CLEAR);
+	if(retVal)
+	{
+		printf("Cleared system screen");
+	}
 
 	//cDebug(1, "main: Starting Up %s Node Software\n", simulatorGetName());
 //	if(simulatorStartup())
