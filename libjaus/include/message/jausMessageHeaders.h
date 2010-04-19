@@ -158,6 +158,7 @@
 #include "inform/worldModel/reportVksDataTransferTerminationMessage.h"
 #include "inform/event/reportEventsMessage.h"
 #include "inform/event/eventMessage.h"
+#include "inform/environment/reportMapMessage.h"
 
 // Query Class
 #include "query/core/queryComponentAuthorityMessage.h"
