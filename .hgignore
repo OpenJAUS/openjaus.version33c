@@ -1,0 +1,20 @@
+
+syntax: regexp
+^libjaus/genmake$
+syntax: regexp
+^libjaus/Makefile$
+syntax: regexp
+\.so$
+syntax: regexp
+\.o$
+syntax: glob
+genmake
+syntax: glob
+Makefile
+syntax: glob
+ojNodeManager
+syntax: regexp
+^gentarget$
+
+syntax: regexp
+^ojVehicleSim/bin/ojVehicleSim$
