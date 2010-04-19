@@ -118,6 +118,7 @@ JAUS_EXPORT void ojCmptRemoveSupportedSc(OjCmpt ojCmpt, unsigned short commandCo
 JAUS_EXPORT ServiceConnection ojCmptGetScSendList(OjCmpt ojCmpt, unsigned short commandCode);
 JAUS_EXPORT void ojCmptDestroySendList(ServiceConnection scList);
 JAUS_EXPORT JausBoolean ojCmptIsOutgoingScActive(OjCmpt ojCmpt, unsigned short commandCode);
+JAUS_EXPORT JausAddress ojCmptGetOutgoingScAddresses(OjCmpt ojCmpt, unsigned short commandCode);
 
 // System Discovery
 JAUS_EXPORT JausBoolean ojCmptLookupAddress(OjCmpt ojCmpt, JausAddress address);

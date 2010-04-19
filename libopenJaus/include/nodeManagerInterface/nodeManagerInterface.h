@@ -208,6 +208,7 @@ JAUS_EXPORT void scManagerRemoveSupportedMessage(NodeManagerInterface, unsigned 
 JAUS_EXPORT JausBoolean scManagerQueryActiveMessage(NodeManagerInterface, unsigned short);
 
 JAUS_EXPORT ServiceConnection scManagerGetSendList(NodeManagerInterface, unsigned short);
+JAUS_EXPORT JausAddress scManagerGetActiveAddressList(NodeManagerInterface nmi, unsigned short commandCode);
 JAUS_EXPORT void scManagerDestroySendList(ServiceConnection);
 
 JAUS_EXPORT JausBoolean scManagerCreateServiceConnection(NodeManagerInterface nmi, ServiceConnection sc);

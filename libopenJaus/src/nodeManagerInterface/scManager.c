@@ -1070,7 +1070,6 @@ JausBoolean scManagerReceiveServiceConnection(NodeManagerInterface nmi, ServiceC
 void scManagerReceiveMessage(NodeManagerInterface nmi, JausMessage message)
 {
 	ServiceConnection sc;
-	char string[32] = {0};
 
 	pthread_mutex_lock(&nmi->scm->mutex);
 
@@ -1104,7 +1103,6 @@ void scManagerReceiveMessage(NodeManagerInterface nmi, JausMessage message)
 		sc = sc->nextSc;
 	}
 
-	jausAddressToString(message->source, string);
 	jausMessageDestroy(message);
 	pthread_mutex_unlock(&nmi->scm->mutex);
 }
@@ -1136,3 +1134,50 @@ int scManagerUpdateServiceConnection(ServiceConnection sc, unsigned short sequen
 
 	return returnValue;
 }
+
+JausAddress scManagerGetActiveAddressList(NodeManagerInterface nmi, unsigned short commandCode)
+{
+	SupportedScMessage supportedScMsg;
+	ServiceConnection sc;
+	JausAddress newAddress = NULL;
+	JausAddress firstAddress = NULL;
+
+	pthread_mutex_lock(&nmi->scm->mutex);
+
+	// find the SC object associated with this command code
+	supportedScMsg = scFindSupportedScMsgInList(nmi->scm->supportedScMsgList, commandCode);
+	if(supportedScMsg)
+	{
+		sc = supportedScMsg->scList;
+	}
+	else
+	{
+		pthread_mutex_unlock(&nmi->scm->mutex);
+		return NULL;
+	}
+
+	while(sc)
+	{
+		// Check for active
+		if(sc->isActive)
+		{
+			if(firstAddress == NULL)
+			{
+				newAddress = jausAddressClone(sc->address);
+				firstAddress = newAddress;
+			}
+			else
+			{
+				newAddress->next = jausAddressClone(sc->address);
+				newAddress = newAddress->next;
+			}
+		}
+
+		sc = sc->nextSc;
+	}
+
+	pthread_mutex_unlock(&nmi->scm->mutex);
+	return firstAddress;
+}
+
+
