@@ -111,7 +111,7 @@ JAUS_EXPORT JausComponent jausComponentCreate(void);
 JAUS_EXPORT void jausComponentDestroy(JausComponent cmpt);
 JAUS_EXPORT JausComponent jausComponentClone(JausComponent cmpt);
 
-JAUS_EXPORT char *jausComponentGetTypeString(JausComponent cmpt);
+JAUS_EXPORT char *jausComponentGetTypeString(JausByte componentId);
 
 JAUS_EXPORT void jausComponentUpdateTimestamp(JausComponent cmpt);
 JAUS_EXPORT JausBoolean jausComponentIsTimedOut(JausComponent cmpt);

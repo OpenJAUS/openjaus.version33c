@@ -148,9 +148,9 @@ JausComponent jausComponentClone(JausComponent component)
 	return clone;
 }
 
-char *jausComponentGetTypeString(JausComponent component)
+char *jausComponentGetTypeString(JausByte componentId)
 {
-	switch(component->address->component)
+	switch(componentId)
 	{	
 		case JAUS_NODE_MANAGER:
 				return "NodeManager";
@@ -255,13 +255,13 @@ int jausComponentToString(JausComponent component, char *buf)
 	if(component->identification)
 	{
 		return sprintf(buf, "%s (%s)-%d.%d", component->identification, 
-											 jausComponentGetTypeString(component), 
+											 jausComponentGetTypeString(component->address->component),
 											 component->address->component, 
 											 component->address->instance);
 	}
 	else
 	{
-		return sprintf(buf, "%s-%d.%d", jausComponentGetTypeString(component), 
+		return sprintf(buf, "%s-%d.%d", jausComponentGetTypeString(component->address->component),
 										component->address->component, 
 										component->address->instance);
 	}
