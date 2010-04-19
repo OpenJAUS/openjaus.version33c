@@ -728,3 +728,9 @@ void ojCmptDefaultStateCallback(OjCmpt ojCmpt, JausMessage message)
 			break;
 	}
 }
+
+JausAddress ojCmptGetOutgoingScAddresses(OjCmpt ojCmpt, unsigned short commandCode)
+{
+	return scManagerGetActiveAddressList(ojCmpt->nmi, commandCode);
+}
+
