@@ -44,6 +44,7 @@
 
 #ifdef __cplusplus
 #include "nodeManager/NodeManager.h"
+#include "componentLibrary/OpenJausComponent.h"
 #endif
 
 #include "nodeManagerInterface/nodeManagerInterface.h"
