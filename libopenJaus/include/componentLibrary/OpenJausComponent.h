@@ -161,4 +161,7 @@ struct Jaus_void_OjCmpt_JausMessage_Proxy
 #define JAUS_MESSAGE_METHOD(Class, Handler) \
    (Jaus_void_OjCmpt_JausMessage_Func)Jaus_void_OjCmpt_JausMessage_Proxy<Class, &Class::Handler>::HandlerProxy
 
+// Example macro usage
+// setStateCallback(JAUS_READY_STATE, JAUS_STATE_METHOD(LocalPoseSensor, _readyStateSlot));
+
 #endif // OPEN_JAUS_COMPONENT_H
