@@ -193,5 +193,5 @@ PointUtm pointLlaToPointUtm(PointLla pointLla)
 /* **************************************************************** */
 void p_error(char *what, char *where)
 {
-	printf(what); printf("\n");
+	printf("%s",what); printf("\n");
 }
