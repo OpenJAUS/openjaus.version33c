@@ -306,6 +306,10 @@ void OjUdpComponentInterface::run()
 					address = systemTree->lookUpAddress(lookupAddress);
 					if(address && jausAddressIsValid(address))
 					{
+						packet->buffer[1] = (unsigned char) (address->instance & 0xFF);
+						packet->buffer[2] = (unsigned char) (address->component & 0xFF);
+						packet->buffer[3] = (unsigned char) (address->node & 0xFF);
+						packet->buffer[4] = (unsigned char) (address->subsystem & 0xFF);
 						packet->buffer[5] = (unsigned char) JAUS_TRUE;
 					}
 					else
@@ -313,10 +317,6 @@ void OjUdpComponentInterface::run()
 						packet->buffer[5] = (unsigned char) JAUS_FALSE;
 					}
 
-					packet->buffer[1] = (unsigned char) (address->instance & 0xFF);
-					packet->buffer[2] = (unsigned char) (address->component & 0xFF);
-					packet->buffer[3] = (unsigned char) (address->node & 0xFF);
-					packet->buffer[4] = (unsigned char) (address->subsystem & 0xFF);
 					datagramSocketSend(this->socket, packet);
 
 					while(address)								// NMJ
