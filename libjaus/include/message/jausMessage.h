@@ -249,6 +249,7 @@
 // Experimental Messages
 #define JAUS_SET_VELOCITY_STATE						0x0404
 #define JAUS_SET_MTT_LIGHTS							0xD000
+#define JAUS_QUERY_MAP								0x28F1
 #define JAUS_REPORT_MAP								0x48F1
 // Define JausMessage data structure
 struct JausMessageStruct
