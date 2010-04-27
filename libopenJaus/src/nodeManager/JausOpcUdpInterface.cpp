@@ -42,7 +42,7 @@
 // Description: Defines the standard JAUS UDP interface on port 3792. Is compliant with the
 // 				OPC/OPC style of UDP header
 
-#include <malloc.h>
+#include <stdlib.h>
 #include "nodeManager/JausOpcUdpInterface.h"
 #include "nodeManager/JausSubsystemCommunicationManager.h"
 #include "nodeManager/JausNodeCommunicationManager.h"

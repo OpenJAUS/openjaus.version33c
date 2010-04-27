@@ -42,7 +42,6 @@
 // Description: Wrapper class for the Node Manager as a whole. Provides user interface to create and run a Node Manager.
 
 #include <cstdlib>
-#include <malloc.h>
 #include "nodeManager/NodeManager.h"
 
 

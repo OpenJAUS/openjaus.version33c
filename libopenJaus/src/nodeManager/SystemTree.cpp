@@ -43,7 +43,6 @@
 //				JAUS subsystems and their associated nodes and components.
 
 #include <cstdlib>
-#include <malloc.h>
 #include "nodeManager/SystemTree.h"
 #include "utils/timeLib.h"
 #include "nodeManager/events/SystemTreeEvent.h"

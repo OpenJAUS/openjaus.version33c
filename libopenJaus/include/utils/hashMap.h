@@ -54,6 +54,9 @@
 			#define _NAMESPACE_STLPORT std
 		#endif
 		#define HASH_MAP _NAMESPACE_STLPORT::hash_map   // QNX 6.3 - GNU 3.3.5
+	#elif defined(__APPLE__)  && defined(__MACH__)
+			#include <ext/hash_map>
+			#define HASH_MAP __gnu_cxx::hash_map
 	#else
 		#include <features.h>
 		#if __GNUC_PREREQ(4,0)
