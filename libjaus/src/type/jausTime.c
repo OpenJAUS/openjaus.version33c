@@ -163,6 +163,23 @@ JausBoolean jausTimeSetTime(JausTime jausTime, time_t timeVal)
 	return JAUS_TRUE;
 }
 
+JausDouble jausTimeInEpoch(JausTime jausTime)
+{
+	time_t currentTime;
+	struct tm gmTime;
+
+	gmTime.tm_sec = jausTime->second;
+	gmTime.tm_min = jausTime->minute;
+	gmTime.tm_hour = jausTime->hour;
+	gmTime.tm_mday = jausTime->day;
+	gmTime.tm_mon = jausTime->month;
+	gmTime.tm_year = jausTime->year - 1900;
+
+	currentTime = mktime(&gmTime);
+
+	return currentTime + jausTime->millisec / 1000.0;
+}
+
 JausBoolean jausTimeToString(JausTime time, char *buffer, size_t buffSize)
 {
 	const char *months[] = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
