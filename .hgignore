@@ -1,0 +1,36 @@
+
+syntax: regexp
+^libjaus/genmake$
+syntax: regexp
+^libjaus/Makefile$
+syntax: regexp
+\.so$
+syntax: regexp
+\.o$
+syntax: glob
+genmake
+syntax: glob
+Makefile
+syntax: glob
+ojNodeManager
+syntax: regexp
+^gentarget$
+
+syntax: regexp
+^ojVehicleSim/bin/ojVehicleSim$
+syntax: regexp
+^libjaus/lib/arm/libjaus\.a$
+syntax: regexp
+^libjaus/lib/arm$
+syntax: regexp
+^libopenJaus/lib/arm/libopenJaus\.a$
+syntax: regexp
+^libopenJaus/lib/arm$
+syntax: regexp
+^libjaus/\.cproject$
+syntax: regexp
+^libjaus/\.project$
+syntax: regexp
+^libopenJaus/\.cproject$
+syntax: regexp
+^libopenJaus/\.project$
