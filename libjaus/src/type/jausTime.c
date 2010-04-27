@@ -180,6 +180,11 @@ JausDouble jausTimeInEpoch(JausTime jausTime)
 	return currentTime + jausTime->millisec / 1000.0;
 }
 
+JausDouble jausTimeStampToDouble(JausTime jausTime)
+{
+	return 3600*jausTime->hour + 60*jausTime->minute + jausTime->second + jausTime->millisec / 1000.0;
+}
+
 JausBoolean jausTimeToString(JausTime time, char *buffer, size_t buffSize)
 {
 	const char *months[] = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
