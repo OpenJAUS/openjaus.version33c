@@ -211,6 +211,6 @@
 #include "query/event/queryEventsMessage.h"
 
 // Experimental
-
+#include "query/environment/queryMapMessage.h"
 
 #endif //JAUS_MESSAGE_HEADERS_H
