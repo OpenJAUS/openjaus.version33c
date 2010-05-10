@@ -810,7 +810,7 @@ int nodeManagerVerifyAddress(NodeManagerInterface nmi, JausAddress address)
 	{
 		free(packet->buffer);
 		datagramPacketDestroy(packet);
-		return 0;
+		return -1;
 	}
 
 }
