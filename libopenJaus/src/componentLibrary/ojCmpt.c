@@ -483,7 +483,7 @@ JausBoolean ojCmptHasController(OjCmpt ojCmpt)
 {
 	if(ojCmpt->jaus->controller.active)
 	{
-		if(ojCmptLookupAddress(ojCmpt, ojCmpt->jaus->controller.address))
+		if(nodeManagerVerifyAddress(ojCmpt->nmi, ojCmpt->jaus->controller.address) )
 		{
 			return JAUS_TRUE;
 		}
