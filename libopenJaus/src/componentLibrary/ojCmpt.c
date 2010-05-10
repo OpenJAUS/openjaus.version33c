@@ -91,10 +91,13 @@ void ojCmptDefaultStateCallback(OjCmpt ojCmpt, JausMessage message);
 
 OjCmpt ojCmptCreate(char *name, JausByte id, double stateFrequencyHz)
 {
-	OjCmpt ojCmpt;
+	OjCmpt ojCmpt = NULL;
 	int i;
 
 	ojCmpt = (OjCmpt)malloc(sizeof(struct OjCmptStruct));
+
+	ojCmpt->frequencyHz = 0;
+	ojCmpt->rateHz = 0;
 
 	ojCmpt->jaus = jausComponentCreate();
 	ojCmpt->jaus->identification = (char *)calloc(strlen(name) + 1, 1);
