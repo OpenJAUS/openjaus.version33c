@@ -85,12 +85,15 @@ OpenJausComponent::OpenJausComponent(OjCmpt cmp):
 
 OpenJausComponent::~OpenJausComponent()
 {
+	// The destroy function shutdowns the component
+	// This needs to be done before we free any other data that
+	// may still be accessed by the component while it is running
+	destroy();
+
 	if(m_address)
 	{
 		jausAddressDestroy(m_address);
 	}
-
-	destroy();
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
