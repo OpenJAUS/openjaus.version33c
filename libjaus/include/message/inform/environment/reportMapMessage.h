@@ -85,6 +85,8 @@ typedef struct
 	JausUnsignedShort sequenceNumber;
 
 	JausByte mapId;
+	JausDouble mapCenterX;
+	JausDouble mapCenterY;
 	JausUnsignedShort width;
 	JausUnsignedShort height;
 	JausByte depth;
