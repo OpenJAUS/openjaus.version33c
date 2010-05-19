@@ -67,6 +67,8 @@ static unsigned int dataSize(ReportMapMessage message);
 static void dataInitialize(ReportMapMessage message)
 {
 	message->mapId = 0;
+	message->mapCenterX = 0;
+	message->mapCenterY = 0;
 	message->width = 0;
 	message->height = 0;
 	message->depth = 1;
@@ -96,6 +98,12 @@ static JausBoolean dataFromBuffer(ReportMapMessage message, unsigned char *buffe
 	{
 		if(!jausByteFromBuffer(&message->mapId, buffer+index, bufferSizeBytes-index)) return JAUS_FALSE;
 		index += JAUS_BYTE_SIZE_BYTES;
+
+		if(!jausDoubleFromBuffer(&message->mapCenterX, buffer+index, bufferSizeBytes-index)) return JAUS_FALSE;
+		index += JAUS_DOUBLE_SIZE_BYTES;
+
+		if(!jausDoubleFromBuffer(&message->mapCenterY, buffer+index, bufferSizeBytes-index)) return JAUS_FALSE;
+		index += JAUS_DOUBLE_SIZE_BYTES;
 
 		if(!jausUnsignedShortFromBuffer(&message->width, buffer+index, bufferSizeBytes-index)) return JAUS_FALSE;
 		index += JAUS_UNSIGNED_SHORT_SIZE_BYTES;
@@ -138,6 +146,12 @@ static int dataToBuffer(ReportMapMessage message, unsigned char *buffer, unsigne
 		if(!jausByteToBuffer(message->mapId, buffer+index, bufferSizeBytes-index)) return JAUS_FALSE;
 		index += JAUS_BYTE_SIZE_BYTES;
 		
+		if(!jausDoubleToBuffer(message->mapCenterX, buffer+index, bufferSizeBytes-index)) return JAUS_FALSE;
+		index += JAUS_DOUBLE_SIZE_BYTES;
+
+		if(!jausDoubleToBuffer(message->mapCenterY, buffer+index, bufferSizeBytes-index)) return JAUS_FALSE;
+		index += JAUS_DOUBLE_SIZE_BYTES;
+
 		if(!jausUnsignedShortToBuffer(message->width, buffer+index, bufferSizeBytes-index)) return JAUS_FALSE;
 		index += JAUS_UNSIGNED_SHORT_SIZE_BYTES;
 
@@ -198,7 +212,7 @@ static int dataToString(ReportMapMessage message, char **buf)
 // Returns number of bytes put into the buffer
 static unsigned int dataSize(ReportMapMessage message)
 {
-	int index = 11;
+	int index = 27;
 
 	index += message->width * message->blockHeight * message->depth;
 		
