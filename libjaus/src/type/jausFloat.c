@@ -54,56 +54,29 @@ JausFloat newJausFloat(float val)
 // Returns success or failed
 JausBoolean jausFloatFromBuffer(JausFloat *jFloat, unsigned char *buf, unsigned int bufferSizeBytes)
 {
-#ifdef JAUS_BIG_ENDIAN
-	int i = 0;
-	unsigned int tempInt = 0;
-#endif
-	float tempFloat = 0.0;
-	
-	if(bufferSizeBytes < JAUS_FLOAT_SIZE_BYTES)
-	{
-		return JAUS_FALSE;
-	}
-	else
-	{
-#ifdef JAUS_BIG_ENDIAN
-		// swap bytes
-		for(i = 0; i < JAUS_FLOAT_SIZE_BYTES; i++)
-		{
-			tempInt += (buf[i] << (JAUS_FLOAT_SIZE_BYTES-i-1)*8);
-		}
-		memcpy(&(tempFloat), &(tempInt), JAUS_FLOAT_SIZE_BYTES);
-#else
-		memcpy(&(tempFloat), buf, JAUS_FLOAT_SIZE_BYTES);
-#endif
+  if(bufferSizeBytes < JAUS_FLOAT_SIZE_BYTES)
+  {
+    return JAUS_FALSE;
+  }
 
-		*jFloat = newJausFloat(tempFloat);
-		return JAUS_TRUE;
-	}
+  float f = 0.0f;
+
+  jausEndianSafeCopy(&f, buf, JAUS_FLOAT_SIZE_BYTES);
+  *jFloat = newJausFloat(f);
+
+  return JAUS_TRUE;
 }
 
 JausBoolean jausFloatToBuffer(JausFloat input, unsigned char *buf, unsigned int bufferSizeBytes)
 {
-#ifdef JAUS_BIG_ENDIAN
-	int i = 0;
-	unsigned int tempInt = 0;
-#endif
+  if(bufferSizeBytes < JAUS_FLOAT_SIZE_BYTES)
+  {
+    return JAUS_FALSE;
+  }
 
-	if(bufferSizeBytes < JAUS_FLOAT_SIZE_BYTES)
-		return JAUS_FALSE;
-	else
-	{
-#ifdef JAUS_BIG_ENDIAN
-		memcpy(&(tempInt), &(input), JAUS_FLOAT_SIZE_BYTES);
+  jausEndianSafeCopy(buf, &input, JAUS_FLOAT_SIZE_BYTES);
 
-		// swap bytes
-		for (i = 0; i < JAUS_FLOAT_SIZE_BYTES; i++)
-			buf[i] = ((tempInt >> (JAUS_FLOAT_SIZE_BYTES-i-1)*8) & 0xFF); // 8 bits per byte
-#else
-		memcpy(buf, &(input), JAUS_FLOAT_SIZE_BYTES);
-#endif
-		return JAUS_TRUE;
-	}
+  return JAUS_TRUE;
 }
 
 int jausFloatToString(JausFloat number, char *buf)

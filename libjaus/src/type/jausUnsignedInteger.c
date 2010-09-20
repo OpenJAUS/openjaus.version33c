@@ -53,46 +53,29 @@ JausUnsignedInteger newJausUnsignedInteger(unsigned int val)
 
 JausBoolean jausUnsignedIntegerFromBuffer(JausUnsignedInteger *jUint, unsigned char *buf, unsigned int bufferSizeBytes)
 {
-#ifdef JAUS_BIG_ENDIAN
-	int i = 0;
-#endif	
-	unsigned int tempUInt = 0;
-	
-	if(bufferSizeBytes < JAUS_UNSIGNED_INTEGER_SIZE_BYTES)
-		return JAUS_FALSE;
-	else
-	{
-#ifdef JAUS_BIG_ENDIAN
-		// swap bytes
-		for(i = 0; i < JAUS_UNSIGNED_INTEGER_SIZE_BYTES; i++)
-			tempUInt += (buf[i] << (JAUS_UNSIGNED_INTEGER_SIZE_BYTES-i-1)*8);
-#else
-		memcpy(&(tempUInt), buf, JAUS_UNSIGNED_INTEGER_SIZE_BYTES);
-#endif	
-		*jUint = newJausUnsignedInteger(tempUInt);
-		return JAUS_TRUE;
-	}
+  if(bufferSizeBytes < JAUS_UNSIGNED_INTEGER_SIZE_BYTES)
+  {
+    return JAUS_FALSE;
+  }
+
+  unsigned int f = 0.0f;
+
+  jausEndianSafeCopy(&f, buf, JAUS_UNSIGNED_INTEGER_SIZE_BYTES);
+  *jUint = newJausUnsignedInteger(f);
+
+  return JAUS_TRUE;
 }
 
 JausBoolean jausUnsignedIntegerToBuffer(JausUnsignedInteger input, unsigned char *buf, unsigned int bufferSizeBytes)
 {
-#ifdef JAUS_BIG_ENDIAN
-	int i = 0;
-#endif	
+  if(bufferSizeBytes < JAUS_UNSIGNED_INTEGER_SIZE_BYTES)
+  {
+    return JAUS_FALSE;
+  }
 
-	if(bufferSizeBytes < JAUS_UNSIGNED_INTEGER_SIZE_BYTES)
-		return JAUS_FALSE;
-	else
-	{
-#ifdef JAUS_BIG_ENDIAN
-		// swap bytes
-		for (i = 0; i < JAUS_UNSIGNED_INTEGER_SIZE_BYTES; i++)
-			buf[i] = ((input >> (JAUS_UNSIGNED_INTEGER_SIZE_BYTES-i-1)*8) & 0xFF); // 8 bits per byte
-#else
-		memcpy(buf, &input, JAUS_UNSIGNED_INTEGER_SIZE_BYTES);
-#endif	
-		return JAUS_TRUE;
-	}
+  jausEndianSafeCopy(buf, &input, JAUS_UNSIGNED_INTEGER_SIZE_BYTES);
+
+  return JAUS_TRUE;
 }
 
 double jausUnsignedIntegerToDouble(JausUnsignedInteger input, double min, double max)
