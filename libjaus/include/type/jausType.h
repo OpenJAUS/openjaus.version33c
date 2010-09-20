@@ -63,6 +63,7 @@
 #include "jausGeometryPointLLA.h"
 #include "jausGeometryPointXYZ.h"
 #include "jausTime.h"
+#include "jausEndianness.h"
 
 #endif
 

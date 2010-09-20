@@ -31,77 +31,33 @@
  *   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
  *   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  ****************************************************************************/
-// File Name: jausInteger.c
+// File Name: jausEndianness.h
 //
-// Written By: Danny Kent (jaus AT dannykent DOT com), Tom Galluzzo (galluzzo AT gmail DOT com)
+// Written By: Rob Meyers (rjmeyers81 AT gmail DOT com)
 //
 // Version: 3.3.0b
 //
-// Date: 09/08/09
+// Date: 09/07/10
 //
-// Description: This file defines all the basic JausFloat funtionality, this should be primarily used through the JausType file and its methods
+// Description: This file defines jaus endianness system and should only be used by jaus functions
 
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
+#ifndef JAUS_ENDIANNESS_H
+#define JAUS_ENDIANNESS_H
+
 #include "jaus.h"
+#include <stdio.h>
 
-JausInteger newJausInteger(int val)
+typedef enum
 {
-	return val;
-}
+  JAUS_UNKNOWN_ENDIAN = -1,
+  _JAUS_BIG_ENDIAN = 0,
+  _JAUS_LITTLE_ENDIAN
+} JausEndianness;
 
-JausBoolean jausIntegerFromBuffer(JausInteger *jInteger, unsigned char *buf, unsigned int bufferSizeBytes)
-{
-  if(bufferSizeBytes < JAUS_INTEGER_SIZE_BYTES)
-  {
-    return JAUS_FALSE;
-  }
 
-  int f = 0.0f;
+void jausEndianSafeCopy(void* dst, void* src, const JausInteger len);
+JausEndianness jausDetectEndianness();
 
-  jausEndianSafeCopy(&f, buf, JAUS_INTEGER_SIZE_BYTES);
-  *jInteger = newJausInteger(f);
 
-  return JAUS_TRUE;
-}
 
-JausBoolean jausIntegerToBuffer(JausInteger input, unsigned char *buf, unsigned int bufferSizeBytes)
-{
-  if(bufferSizeBytes < JAUS_INTEGER_SIZE_BYTES)
-  {
-    return JAUS_FALSE;
-  }
-
-  jausEndianSafeCopy(buf, &input, JAUS_INTEGER_SIZE_BYTES);
-
-  return JAUS_TRUE;
-}
-
-double jausIntegerToDouble(JausInteger input, double min, double max)
-{
-	// BUG: What to do when max < min
-	double scaleFactor = (max-min)/JAUS_INTEGER_RANGE;
-	double bias = (max+min)/2.0; 
-		
-	return input*scaleFactor + bias;
-}
-
-JausInteger jausIntegerFromDouble(double value, double min, double max)
-{
-	//limit value between min and max Int values
-	double scaleFactor = (max-min)/JAUS_INTEGER_RANGE;
-	double bias = (max+min)/2.0;
-	
-	// limit real number between min and max
-	if(value < min) value = min;
-	if(value > max) value = max;
-		
-	// return rounded integer value
-	return newJausInteger((int)((value - bias)/scaleFactor + 0.5));
-}
-
-int jausIntegerToString(JausInteger number, char *buf)
-{
-  return sprintf(buf, "%d", number);
-}
+#endif //JAUS_ENDIANESS_H
