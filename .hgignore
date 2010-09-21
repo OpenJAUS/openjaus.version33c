@@ -34,3 +34,10 @@ syntax: regexp
 ^libopenJaus/\.cproject$
 syntax: regexp
 ^libopenJaus/\.project$
+
+syntax: glob
+.build
+syntax: glob
+*.swp
+syntax: glob
+*.a
