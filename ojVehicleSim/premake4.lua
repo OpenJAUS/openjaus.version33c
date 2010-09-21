@@ -13,5 +13,5 @@ project "ojVehicleSim"
 
   configuration "Release"
     defines { "NDEBUG" }
-    flags { "Symbols" }
+    flags { "Optimize" }
 

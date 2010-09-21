@@ -12,5 +12,5 @@ project "jaus"
       
   configuration "Release"
     defines { "NDEBUG" }
-    flags { "Symbols" }
+    flags { "Optimize" }
 
