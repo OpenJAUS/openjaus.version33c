@@ -51,7 +51,9 @@ void jausEndianSafeCopy(void* dst, void* src, const JausInteger len)
 
   if(jausDetectEndianness() == _JAUS_BIG_ENDIAN)
   { // it is little endian, switch to network byte order for serialization
-    for(unsigned int i=0; i < len; ++i)
+    unsigned int i = 0;
+
+    for(i=0; i < len; ++i)
     {
       destination[i] = source[len - i - 1];
     }
