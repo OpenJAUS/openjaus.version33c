@@ -44,9 +44,6 @@
 #ifndef JAUS_ENDIANNESS_H
 #define JAUS_ENDIANNESS_H
 
-#include "jaus.h"
-#include <stdio.h>
-
 typedef enum
 {
   JAUS_UNKNOWN_ENDIAN = -1,
@@ -55,8 +52,8 @@ typedef enum
 } JausEndianness;
 
 
-void jausEndianSafeCopy(void* dst, void* src, const JausInteger len);
-JausEndianness jausDetectEndianness();
+JAUS_EXPORT void jausEndianSafeCopy(void* dst, void* src, const JausInteger len);
+JAUS_EXPORT JausEndianness jausDetectEndianness();
 
 
 
