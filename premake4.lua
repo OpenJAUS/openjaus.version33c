@@ -4,7 +4,7 @@ solution "OpenJAUS"
 project "jaus"
   local prj = project()
   local sol = solution()
-  kind "StaticLib"
+  kind "SharedLib"
   language "C"
 
   prj.basedir = string.format("%s/lib%s", sol.basedir, prj.name)
@@ -29,8 +29,8 @@ project "jaus"
 project "openJaus"
   local prj = project()
   local sol = solution()
-  kind "StaticLib"
-  language "C"
+  kind "SharedLib"
+  language "C++"
 
   prj.basedir = string.format("%s/lib%s", sol.basedir, prj.name)
   os.chdir(prj.basedir)
