@@ -360,11 +360,36 @@ void NodeManagerComponent::shutdownState()
 void NodeManagerComponent::allState()
 {
 	static double refreshTime = 0;
+
 	generateHeartbeats();
 	if(ojGetTimeSec() >= refreshTime)
 	{
 		systemTree->refresh();
 		refreshTime = ojGetTimeSec() + REFRESH_TIME_SEC;
+	}
+
+	static double reconfigureTime = 0;
+	if(ojGetTimeSec() >= reconfigureTime)
+	{
+		JausSubsystem thisSubs = systemTree->getSubsystem(this->cmpt->address->subsystem);
+
+		for(int i = 0; i < thisSubs->nodes->elementCount; i++)
+		{
+			JausNode node = (JausNode) thisSubs->nodes->elementData[i];
+
+			JausAddress address = jausAddressCreate();
+			address->subsystem = thisSubs->id;
+			address->node = node->id;
+			address->component = JAUS_NODE_MANAGER;
+			address->instance = 1;
+
+			sendQueryNodeConfiguration(address, true);
+			jausAddressDestroy(address);
+		}
+
+		jausSubsystemDestroy(thisSubs);
+
+		reconfigureTime = ojGetTimeSec() + 30.0;
 	}
 
 	// TODO: Check for serviceConnections
