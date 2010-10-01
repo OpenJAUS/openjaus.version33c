@@ -41,7 +41,8 @@
 //
 // Description: This file defines jaus endianness system and should only be used by jaus functions
 
-#include "type/jausEndianness.h"
+#include <stdio.h>
+#include "jaus.h"
 
 
 void jausEndianSafeCopy(void* dst, void* src, const JausInteger len)
@@ -88,18 +89,18 @@ JausEndianness jausDetectEndianness()
       detectedEndianness = JAUS_UNKNOWN_ENDIAN;
     }
 
-    if(detectedEndianness == _JAUS_BIG_ENDIAN)
-      {
-        printf("Big endian system\n");
-      }
-    else if (detectedEndianness == _JAUS_LITTLE_ENDIAN)
-      {
-        printf("Little endian system\n");
-      }
-    else
-      {
-        printf("Unknown endian system\n");
-      }
+//    if(detectedEndianness == _JAUS_BIG_ENDIAN)
+//      {
+//        printf("Big endian system\n");
+//      }
+//    else if (detectedEndianness == _JAUS_LITTLE_ENDIAN)
+//      {
+//        printf("Little endian system\n");
+//      }
+//    else
+//      {
+//        printf("Unknown endian system\n");
+//      }
 
   }
 
