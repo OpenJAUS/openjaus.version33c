@@ -215,6 +215,10 @@ static JausBoolean dataFromBuffer(CreateEventMessage message, unsigned char *buf
 			memcpy(message->queryMessage->data, buffer+index, queryMessageSize);
 			index += queryMessageSize;
 		}
+		else
+		{
+			message->queryMessage = NULL;
+		}
 		return JAUS_TRUE;
 	}
 	else
