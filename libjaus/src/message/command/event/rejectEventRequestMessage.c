@@ -121,6 +121,10 @@ static JausBoolean dataFromBuffer(RejectEventRequestMessage message, unsigned ch
 				message->errorMessage = NULL;
 			}
 		}
+		else
+		{
+			message->errorMessage = NULL;
+		}
 
 		return JAUS_TRUE;
 	}
